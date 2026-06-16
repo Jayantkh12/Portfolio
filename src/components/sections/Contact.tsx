@@ -33,8 +33,12 @@ export const Contact = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<ContactForm>();
+
+  const messageValue = watch('message', '');
+  const wordCount = messageValue.trim().split(/\s+/).filter(Boolean).length;
 
   const onSubmit = async (data: ContactForm) => {
     setSubmitError(false);
@@ -182,12 +186,26 @@ export const Contact = () => {
               </div>
 
               <div>
-                <label htmlFor="contact-message" className="block text-sm font-medium text-white mb-2">Message</label>
+                <div className="flex justify-between items-center mb-2">
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-white">Message</label>
+                  <span className={`text-xs ${wordCount > 500 ? 'text-red-400 font-semibold animate-pulse' : 'text-text-muted'}`}>
+                    {wordCount} / 500 words
+                  </span>
+                </div>
                 <textarea
                   id="contact-message"
                   rows={5}
                   placeholder="Tell me about your project or opportunity..."
-                  {...register('message', { required: 'Message is required', minLength: { value: 20, message: 'At least 20 characters required' } })}
+                  {...register('message', {
+                    required: 'Message is required',
+                    minLength: { value: 20, message: 'At least 20 characters required' },
+                    validate: {
+                      maxWords: (value) => {
+                        const count = value.trim().split(/\s+/).filter(Boolean).length;
+                        return count <= 500 || `Message cannot exceed 500 words`;
+                      }
+                    }
+                  })}
                   className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-text-muted text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none ${errors.message ? 'border-red-500/50' : 'border-white/10 hover:border-white/20'}`}
                 />
                 {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>}
