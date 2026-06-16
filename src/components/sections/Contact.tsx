@@ -28,6 +28,7 @@ const socials = [
 
 export const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const {
     register,
     handleSubmit,
@@ -36,11 +37,32 @@ export const Contact = () => {
   } = useForm<ContactForm>();
 
   const onSubmit = async (data: ContactForm) => {
-    await new Promise(r => setTimeout(r, 1500));
-    console.log('Form data:', data);
-    setSubmitted(true);
-    reset();
-    setTimeout(() => setSubmitted(false), 5000);
+    setSubmitError(false);
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/jayantkumar2901@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          _subject: `New Portfolio Message: ${data.subject}`,
+          message: data.message,
+        })
+      });
+      if (response.ok) {
+        setSubmitted(true);
+        reset();
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (err) {
+      console.error(err);
+      setSubmitError(true);
+    }
   };
 
   return (
@@ -187,6 +209,11 @@ export const Contact = () => {
                   <><FiSend size={18} />Send Message</>
                 )}
               </motion.button>
+              {submitError && (
+                <p className="text-red-400 text-xs text-center mt-2">
+                  Failed to send message. Please try again or email me directly at jayantkumar2901@gmail.com
+                </p>
+              )}
             </form>
           </motion.div>
         </div>
