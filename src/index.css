@@ -1,0 +1,488 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================
+   Custom Global Styles
+=========================== */
+:root {
+  --primary: #6366F1;
+  --secondary: #8B5CF6;
+  --accent: #06B6D4;
+  --bg: #0A0A0A;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0A0A0A;
+  color: #ffffff;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366F1, #8B5CF6);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8B5CF6, #06B6D4);
+}
+
+/* Selection */
+::selection {
+  background: rgba(99,102,241,0.4);
+  color: #ffffff;
+}
+
+/* ===========================
+   Glassmorphism Utility
+=========================== */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ===========================
+   Gradient Utilities
+=========================== */
+.gradient-text {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #6366F1, #8B5CF6, #06B6D4);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ===========================
+   Glow Effects
+=========================== */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(99,102,241,0.5), 0 0 60px rgba(99,102,241,0.2);
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px rgba(6,182,212,0.5), 0 0 60px rgba(6,182,212,0.2);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(99,102,241,0.8), 0 0 40px rgba(139,92,246,0.4);
+}
+
+/* ===========================
+   Particle Canvas
+=========================== */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===========================
+   Custom Cursor
+=========================== */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: #6366F1;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgba(99,102,241,0.6);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.15s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring.hover {
+  transform: scale(1.8);
+  border-color: rgba(6,182,212,0.8);
+  background: rgba(99,102,241,0.1);
+}
+
+/* ===========================
+   Scroll Progress Bar
+=========================== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6366F1, #8B5CF6, #06B6D4);
+  z-index: 9997;
+  transition: width 0.1s ease;
+}
+
+/* ===========================
+   Section utilities
+=========================== */
+.section-padding {
+  padding: 100px 0;
+}
+
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===========================
+   Typing cursor blink
+=========================== */
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.2em;
+  background: #6366F1;
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===========================
+   Timeline
+=========================== */
+.timeline-line {
+  background: linear-gradient(180deg, #6366F1, #8B5CF6, #06B6D4, transparent);
+}
+
+/* ===========================
+   Skill progress bar
+=========================== */
+.skill-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #6366F1, #8B5CF6);
+  position: relative;
+}
+
+.skill-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 8px;
+  height: 8px;
+  background: #06B6D4;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(6,182,212,0.8);
+}
+
+/* ===========================
+   Light mode overrides
+=========================== */
+.light body {
+  background-color: #F0F2FF;
+  color: #0D0D1A;
+  cursor: none;
+}
+
+/* Background */
+.light #root {
+  background-color: #F0F2FF;
+}
+
+/* Glass cards */
+.light .glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  box-shadow: 0 4px 24px rgba(99, 102, 241, 0.08);
+}
+
+.light .glass-dark {
+  background: rgba(240, 242, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+/* All white text → dark in light mode */
+.light .text-white {
+  color: #0D0D1A !important;
+}
+
+/* Muted text */
+.light .text-text-muted {
+  color: rgba(13, 13, 26, 0.6) !important;
+}
+
+/* Surface backgrounds */
+.light .bg-surface-1,
+.light [class*="bg-surface-1"] {
+  background-color: #E8EAFF;
+}
+
+.light .bg-surface-2,
+.light [class*="bg-surface-2"] {
+  background-color: #DDE0FF;
+}
+
+/* Scrollbar */
+.light ::-webkit-scrollbar-track {
+  background: #E8EAFF;
+}
+
+/* Selection */
+.light ::selection {
+  background: rgba(99,102,241,0.3);
+  color: #0D0D1A;
+}
+
+/* Skill bar track */
+.light .skill-bar {
+  background: rgba(99, 102, 241, 0.12);
+}
+
+/* Glow adjustments for light mode (softer) */
+.light .glow-primary {
+  box-shadow: 0 0 16px rgba(99,102,241,0.25);
+}
+
+/* Section headers & general headings */
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light h5,
+.light h6 {
+  color: #0D0D1A;
+}
+
+.light p {
+  color: rgba(13, 13, 26, 0.75);
+}
+
+/* Navbar */
+.light nav {
+  color: #0D0D1A;
+}
+
+/* Input fields in contact form */
+.light input,
+.light textarea {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #0D0D1A !important;
+  border-color: rgba(99, 102, 241, 0.2) !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: rgba(13, 13, 26, 0.35) !important;
+}
+
+.light input:focus,
+.light textarea:focus {
+  border-color: rgba(99, 102, 241, 0.5) !important;
+}
+
+/* Code-like spans in About */
+.light .font-mono {
+  color: inherit;
+}
+
+/* Badges & pills that use white/5 background */
+.light [class*="bg-white/5"],
+.light [class*="bg-white\/5"] {
+  background-color: rgba(99, 102, 241, 0.06) !important;
+}
+
+.light [class*="bg-white/10"],
+.light [class*="bg-white\/10"] {
+  background-color: rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Footer text */
+.light footer {
+  border-top-color: rgba(99, 102, 241, 0.15);
+  background-color: rgba(220, 222, 255, 0.5) !important;
+}
+
+.light footer p,
+.light footer a,
+.light footer span {
+  color: rgba(13, 13, 26, 0.7);
+}
+
+/* Gradient text stays vibrant in both modes */
+.light .gradient-text {
+  background: linear-gradient(135deg, #6366F1 0%, #7C3AED 50%, #0891B2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero section particle bg */
+.light #particle-canvas {
+  opacity: 0.4;
+}
+
+/* Timeline line slightly more visible */
+.light .timeline-line {
+  opacity: 0.7;
+}
+
+/* Tech badges */
+.light .border-white\/10 {
+  border-color: rgba(99, 102, 241, 0.2) !important;
+}
+
+.light .border-white\/20 {
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Hero radial gradient (lighter) */
+.light .bg-gradient-hero {
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99,102,241,0.15) 0%, transparent 60%);
+}
+
+/* Strong tags in light mode */
+.light strong {
+  color: #0D0D1A !important;
+}
+
+/* Section backgrounds in light mode */
+.light section {
+  background: transparent;
+}
+
+/* Ensure labels in contact form are visible */
+.light label {
+  color: #0D0D1A !important;
+}
+
+/* Fix any remaining white spans/divs used as text */
+.light span.text-white,
+.light div.text-white,
+.light button.text-white,
+.light a.text-white {
+  color: #0D0D1A !important;
+}
+
+/* Buttons with white text on primary bg keep white text */
+.light .bg-primary,
+.light .bg-primary:hover,
+.light .hover\:bg-primary:hover,
+.light .hover\:bg-secondary:hover {
+  color: #ffffff !important;
+}
+
+/* Fix hero section orbital rings */
+.light .border-primary\/10 {
+  border-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+/* ===========================
+   Animations
+=========================== */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+}
+
+/* ===========================
+   Project card hover
+=========================== */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+}
+
+/* ===========================
+   Responsive helpers
+=========================== */
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 60px 0;
+  }
+  body {
+    cursor: auto;
+  }
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
